@@ -163,8 +163,8 @@ describe('Offline: service worker audit', () => {
 
     const output = ServiceWorker.audit(createArtifacts(swOpts, finalUrl, manifest));
     assert.strictEqual(output.score, 0);
-    expect(output.explanation).toBeDisplayString('This page is controlled by a service worker, ' +
-      `however the start_url (${startUrl}) is not in the service worker's scope (${scopeURL})`);
+    expect(output.explanation).toBeDisplayString(
+      /service worker,.*\(.*\) is not in the service worker's scope \(.*\)/);
   });
 
   it('passes when both outside default scope but explicit scopeURL puts it back in', () => {
