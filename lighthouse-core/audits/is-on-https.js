@@ -31,6 +31,7 @@ const UIStrings = {
 };
 
 const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
+
 const SECURE_SCHEMES = ['data', 'https', 'wss', 'blob', 'chrome', 'chrome-extension', 'about'];
 const SECURE_DOMAINS = ['localhost', '127.0.0.1'];
 
