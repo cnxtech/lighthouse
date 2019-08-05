@@ -353,47 +353,6 @@ class Util {
     return segments;
   }
 
-
-  /**
-   * Split a string on markdown links (e.g. [some link](https://...)). Text will
-   * be split into segments with a starting `preambleText` that wasn't part of a
-   * link, followed by [`linkText`](`linkHref`) which were part of a link. Both
-   * `linkText` and `linkHref` will be undefined if there was no link in that
-   * segment.
-   * @param {string} text
-   * @return {Array<{isLink: true, linkText: string, linkHref: string}|{isLink: false, plainText: string}>}
-   */
-  static splitMarkdownLink2(text) {
-    /** @type {Array<{isLink: true, linkText: string, linkHref: string}|{isLink: false, plainText: string}>} */
-    const segments = [];
-
-    const parts = text.split(/\[([^\]]*?)\]\((https?:\/\/.*?)\)/g);
-    for (let i = 0; i < parts.length; i++) {
-      const text = parts[i];
-
-      if (i % 3 === 0) {
-        // The first of three is always the plain text before the matched regex.
-        if (!text) continue; // Empty plain text isn't worth saving.
-
-        segments.push({
-          isLink: false,
-          plainText: parts[i],
-        });
-      } else if (i % 3 === 1) {
-        // There will always be a following linkHref if text was matched here.
-        const linkHref = parts[++i];
-
-        segments.push({
-          isLink: true,
-          linkText: text,
-          linkHref,
-        });
-      }
-    }
-
-    return segments;
-  }
-
   /**
    * @param {URL} parsedUrl
    * @param {{numPathParts?: number, preserveQuery?: boolean, preserveHost?: boolean}=} options
